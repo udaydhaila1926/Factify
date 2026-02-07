@@ -56,13 +56,12 @@ export function ThemeProvider({
   }
 
   return (
-    <ThemeProviderContext.Provider value={value} {...props}>
+    <ThemeProviderContext.Provider value={value}>
       {children}
     </ThemeProviderContext.Provider>
   )
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext)
 
@@ -71,7 +70,3 @@ export const useTheme = () => {
 
   return context
 }
-
-// Helper to avoid prop spreading error in strict mode if needed, 
-// but standard spread above is fine for this context.
-const props = {}

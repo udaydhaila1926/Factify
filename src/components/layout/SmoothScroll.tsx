@@ -1,29 +1,18 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import Lenis from 'lenis';
-import { gsap } from 'gsap';
+import 'lenis/dist/lenis.css';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import gsap from 'gsap';
 
-gsap.registerPlugin(ScrollTrigger);
-
-interface SmoothScrollProps {
-  children: React.ReactNode;
-}
-
-export function SmoothScroll({ children }: SmoothScrollProps) {
-  const lenisRef = useRef<Lenis | null>(null);
-
+export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
-    // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Smooth easing
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      touchMultiplier: 2,
     });
-
-    lenisRef.current = lenis;
 
     // Sync Lenis with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
@@ -36,9 +25,9 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
 
     return () => {
       lenis.destroy();
-      gsap.ticker.remove(lenis.raf);
+      gsap.ticker.remove((time) => lenis.raf(time * 1000));
     };
   }, []);
 
   return <div className="w-full min-h-screen">{children}</div>;
-}
+};
