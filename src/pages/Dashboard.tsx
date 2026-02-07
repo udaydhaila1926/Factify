@@ -39,20 +39,37 @@ export function Dashboard() {
   const resultRef = useRef<HTMLDivElement>(null);
 
   // GSAP Animation for results
-  useGSAP(() => {
-    if (result && resultRef.current) {
-        gsap.fromTo(resultRef.current, 
-            { y: 50, opacity: 0, scale: 0.95 },
-            { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.2)" }
-        );
-        
-        // Stagger children cards
-        gsap.fromTo(".result-card-item", 
-            { y: 20, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, delay: 0.2, ease: "power2.out" }
-        );
+  // Animate score number & pie container
+useGSAP(() => {
+  if (!result) return;
+
+  gsap.fromTo(
+    '.score-number',
+    { innerText: 0 },
+    {
+      innerText: result.score,
+      duration: 1.4,
+      snap: { innerText: 1 },
+      ease: 'power2.out',
     }
-  }, { scope: containerRef, dependencies: [result] });
+  );
+
+  gsap.from('.score-chart', {
+    scale: 0.85,
+    opacity: 0,
+    duration: 0.6,
+    ease: 'back.out(1.6)',
+  });
+
+  gsap.from('.verdict-badge', {
+    scale: 0.9,
+    opacity: 0,
+    duration: 0.4,
+    delay: 0.3,
+    ease: 'power2.out',
+  });
+}, { dependencies: [result] });
+
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
