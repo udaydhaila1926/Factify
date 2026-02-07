@@ -2,7 +2,7 @@ const axios = require('axios');
 
 class BiasService {
   constructor() {
-    this.openaiApiKey = process.env.OPENAI_API_KEY;
+    this.openaiApiKey = process.env.GROQ_API_KEY;
   }
 
   /**
