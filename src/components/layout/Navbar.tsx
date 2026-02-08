@@ -50,10 +50,33 @@ export const Navbar = () => {
                 <>
                   <MagneticLink to="/dashboard">Dashboard</MagneticLink>
                   <MagneticLink to="/history">History</MagneticLink>
+
+                  <a
+  href="https://deepfake-dun.vercel.app/"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="
+    relative inline-block
+    text-sm font-medium
+    text-muted-foreground
+    transition-colors duration-300
+    hover:text-foreground
+    after:absolute after:left-0 after:-bottom-1
+    after:h-[2px] after:w-0
+    after:bg-blue-600
+    after:transition-all after:duration-300
+    hover:after:w-full
+  "
+>
+  Deepfake Detection
+</a>
+
+
+
                 </>
               )}
             </div>
-            
+
             <div className="flex items-center gap-3">
               <ModeToggle />
 
