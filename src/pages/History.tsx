@@ -46,7 +46,12 @@ export const History = () => {
       .order('created_at', { ascending: false });
 
     if (error) {
-      toast.error('Failed to load history');
+      // Improved error handling for missing tables
+      if (error.code === 'PGRST205') {
+        toast.error('Database setup incomplete: Run migration SQL');
+      } else {
+        toast.error(`Failed to load history: ${error.message}`);
+      }
     } else {
       const claims = data as ClaimResult[];
       setHistory(claims);
@@ -161,6 +166,47 @@ export const History = () => {
           )}
 
           {/* History list stays unchanged */}
+          <div className="space-y-4">
+            {history.map((item) => (
+              <div
+                id={`claim-${item.id}`}
+                key={item.id}
+                className="history-item bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg p-4 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+              >
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Badge variant={item.verdict === 'True' ? 'success' : item.verdict === 'False' ? 'destructive' : 'warning'}>
+                      {item.verdict}
+                    </Badge>
+                    <span className="text-xs text-slate-500 flex items-center gap-1">
+                      <Calendar className="h-3 w-3" />
+                      {new Date(item.created_at).toLocaleDateString()}
+                    </span>
+                  </div>
+                  <p className="text-slate-800 dark:text-slate-200 font-medium line-clamp-2">
+                    {item.input_text}
+                  </p>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <div className="text-right hidden md:block">
+                    <div className="text-lg font-bold" style={{ color: item.credibility_score >= 80 ? '#22c55e' : item.credibility_score >= 50 ? '#eab308' : '#ef4444' }}>
+                      {item.credibility_score}%
+                    </div>
+                    <div className="text-[10px] uppercase text-slate-500">Score</div>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => handleDelete(item.id)}
+                    className="text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </PageTransition>

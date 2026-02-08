@@ -45,7 +45,12 @@ export const Dashboard = () => {
     
     if (error) {
       console.error('Error fetching history:', error);
-      toast.error('Failed to load history');
+      // Improved error handling for missing tables
+      if (error.code === 'PGRST205') {
+        toast.error('Database setup incomplete: Run migration SQL');
+      } else {
+        toast.error(`Failed to load history: ${error.message}`);
+      }
     }
     else if (data) setHistory(data as unknown as ClaimResult[]);
   };
@@ -112,7 +117,12 @@ export const Dashboard = () => {
       toast.success('Claim verified successfully');
     } catch (error: any) {
       console.error("Verification failed", error);
-      toast.error(error.message || "Failed to verify claim. Check API Keys.");
+      // Improved error handling for missing tables
+      if (error.code === 'PGRST205') {
+        toast.error('Database setup incomplete: Run migration SQL');
+      } else {
+        toast.error(error.message || "Failed to verify claim. Check API Keys.");
+      }
     } finally {
       setIsLoading(false);
     }

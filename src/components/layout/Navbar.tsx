@@ -45,6 +45,7 @@ export const Navbar = () => {
           <div className="flex items-center gap-2 md:gap-8">
             <div className="hidden md:flex items-center gap-8 mr-2">
               <MagneticLink to="/about">About</MagneticLink>
+              <MagneticLink to="/trending">Trending</MagneticLink>
               {user && (
                 <>
                   <MagneticLink to="/dashboard">Dashboard</MagneticLink>

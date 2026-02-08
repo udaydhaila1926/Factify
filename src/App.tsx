@@ -9,6 +9,7 @@ import { Dashboard } from './pages/Dashboard';
 import { About } from './pages/About';
 import { History } from './pages/History';
 import { Profile } from './pages/Profile';
+import { Trending } from './pages/Trending';
 import { ThemeProvider } from './components/theme-provider';
 import { SmoothScroll } from './components/layout/SmoothScroll';
 
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/login" element={<Auth />} />
                 <Route path="/register" element={<Auth />} />
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/trending" element={<Trending />} />
                 <Route path="/history" element={<History />} />
                 <Route path="/profile" element={<Profile />} />
               </Routes>
