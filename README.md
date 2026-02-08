@@ -1,164 +1,201 @@
-📘 Factify — AI-Powered Real-Time Misinformation Verification
+📘 Factify — AI-Powered Misinformation & Deepfake Detection Platform
 
-Factify is a full-stack web platform that analyzes online claims, text, or URLs and returns a verdict, credibility score, and explainable evidence using AI + web intelligence.
+Factify is a modern AI-powered web application designed to combat misinformation by verifying text-based claims and detecting AI-generated deepfake media. It provides users with credibility analysis, explainable results, and intelligent insights using cutting-edge AI models.
 
 🚀 Features
-🧠 AI Verification Engine
+🧠 Claim Verification (Text-Based)
 
-Accepts text claims or URLs
+Analyze text claims or news content
 
-Uses NLP + web-search retrieval
+AI-powered credibility assessment
+
+Verdict classification:
+
+✅ True
+
+❌ False
+
+⚠️ Misleading
+
+❓ Unverified
+
+Credibility score (0–100)
+
+Explainable reasoning and summaries
+
+🎭 Deepfake Detection (NEW)
+
+Detects AI-generated / manipulated media
+
+Supports:
+
+🖼️ Image-based deepfake detection
+
+🎥 Video deepfake analysis (if enabled)
+
+Uses AI models to analyze:
+
+Facial inconsistencies
+
+Artifact patterns
+
+Manipulation traces
 
 Returns:
 
-✔️ True / False / Misleading / Unverified
+Deepfake probability score
 
-🔢 Credibility Score (0–100)
+Real vs Fake classification
 
-📚 Cited Evidence with summarized reasoning
+Confidence indicators
 
-🖥️ Frontend (Next.js)
+🔥 This feature was added recently and is now a core capability of Factify.
 
-Modern UI built with Next.js 14 App Router
+🖥️ Frontend
 
-TailwindCSS + ShadCN UI components
+Built with React + TypeScript
 
-Real-time result cards
+Powered by Vite for fast builds
 
-Debounced search and URL validation
+Modern UI using:
 
-⚙️ Backend (Django API)
+Tailwind CSS
 
-REST API using Django Rest Framework (DRF)
+ShadCN UI components
 
-Endpoint /api/verify handles:
+Smooth animations & interactive charts
 
-Claim analysis
+Responsive and accessible design
 
-Web search retrieval
+🗄️ Backend & Infrastructure
 
-AI inference + explanation
+Supabase for:
 
-PostgreSQL database for logging verification history
+Authentication
+
+Database
+
+Storage
+
+Serverless architecture
+
+Secure API handling for AI requests
+
+📊 Data & Visualization
+
+Visual credibility scores
+
+Charts for analysis trends
+
+Real-time feedback on submissions
+
+🧱 Tech Stack
+
+Frontend
+
+React
+
+TypeScript
+
+Vite
+
+Tailwind CSS
+
+ShadCN UI
+
+Recharts
+
+Backend / Services
+
+Supabase
+
+AI APIs (LLMs + Deepfake Models)
+
+Tooling
+
+ESLint
+
+PostCSS
+
+Netlify (deployment)
+
+📂 Project Structure
+Factify/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── hooks/
+│   ├── utils/
+│   └── styles/
+├── supabase/
+├── public/
+├── index.html
+├── vite.config.ts
+├── tailwind.config.js
+├── tsconfig.json
+└── package.json
+
+⚙️ Installation & Setup
+1️⃣ Clone the Repository
+git clone https://github.com/your-username/factify.git
+cd factify
+
+2️⃣ Install Dependencies
+npm install
+
+3️⃣ Environment Variables
+
+Create a .env file:
+
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_key
+VITE_AI_API_KEY=your_ai_api_key
+
+4️⃣ Run Locally
+npm run dev
+
+🧪 Usage
+
+Submit a text claim to verify authenticity
+
+Upload images/videos for deepfake detection
+
+View AI-generated verdicts, scores, and explanations instantly
+
+📦 Deployment
+Netlify
+npm run build
+
+
+Deploy the dist/ folder via Netlify.
 
 🔐 Security
 
-Rate limiting
+Environment-based API key protection
 
-API key protection for AI calls
+Input validation & sanitization
 
-Sanitized input validation
-
-📡 Architecture (High Level)
-Next.js (client)  
-   ↓ fetch()  
-Django REST API  
-   ↓  
-AI Engine (LLM + Retrieval)  
-   ↓  
-Verdict + Score + Evidence
-
-📂 Project Structure
-Frontend (Next.js)
-/frontend
- ├── app/
- │    ├── page.tsx
- │    ├── api/
- │    └── components/
- ├── public/
- ├── styles/
- └── package.json
-
-Backend (Django)
-/backend
- ├── factify/
- │    ├── settings.py
- │    ├── urls.py
- │    ├── wsgi.py
- ├── api/
- │    ├── views.py
- │    ├── serializers.py
- │    ├── urls.py
- ├── models/
- └── requirements.txt
-
-🔧 Installation & Setup
-1. Clone the Repository
-git clone https://github.com/yourusername/factify.git
-cd factify
-
-🖥️ Frontend Setup (Next.js)
-Install dependencies:
-cd frontend
-npm install
-
-Run locally:
-npm run dev
-
-Environment variables:
-
-Create .env.local:
-
-NEXT_PUBLIC_API_URL=http://localhost:8000/api
-
-⚙️ Backend Setup (Django)
-Create & activate virtual environment:
-cd backend
-python -m venv venv
-source venv/bin/activate   # Linux/Mac
-venv\Scripts\activate      # Windows
-
-Install dependencies:
-pip install -r requirements.txt
-
-Run server:
-python manage.py migrate
-python manage.py runserver
-
-Environment variables (.env):
-OPENAI_API_KEY=your_key_here
-SEARCH_API_KEY=your_key_here
-DEBUG=True
-
-🔌 API Usage
-POST /api/verify
-Request:
-{
-  "claim": "COVID-19 was created in a lab.",
-  "source_url": ""
-}
-
-Response:
-{
-  "verdict": "Misleading",
-  "score": 42,
-  "evidence": ["Source 1...", "Source 2..."]
-}
-
-📦 Deployment
-Frontend
-
-Deploy on Vercel
-
-vercel deploy
-
-Backend
-
-Deploy on Render, Railway, or AWS EC2
-
-Use Gunicorn + Nginx
+Supabase auth & role-based access
 
 🧪 Testing
-Frontend tests:
-npm run test
-
-Backend tests:
-python manage.py test
+npm run lint
 
 🤝 Contributing
 
-Fork the repo
+Fork the repository
 
-Create a feature branch
+Create a new branch
 
-Submit a pull request
+Commit your changes
+
+Open a pull request
+
+📌 Future Enhancements
+
+Audio deepfake detection
+
+Browser extension
+
+Multilingual verification
+
+Whatsapp bot
